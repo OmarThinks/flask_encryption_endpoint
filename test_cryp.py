@@ -171,6 +171,7 @@ El5Oq0MsOcNYPD8Wmes=
 		4294967295\ngpg: decrypt_message failed: Unknown 
 		system error\n'}
 		"""	
+		print(decrypted.stderr)
 		self.assertEqual(decrypted.ok, False)
 		self.assertEqual(decrypted.status, "no data was provided")
 		print("test_004_failing_decryption")

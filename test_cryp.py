@@ -85,14 +85,95 @@ jA0ECQMCVady3RUyJw3X0kcBF+zdkfZOMhISoYBRwR3uk3vNv+TEg+rJnp4/yYISpEoI2S82cDiCNBIV
 		"""
 
 		encrypted_byte_like = str(encrypted_ascii_data.data,'utf-8')
+		print(encrypted_byte_like)
 		decrypted = gpg.decrypt(encrypted_byte_like, 
 			passphrase = passphrase)
 		print(decrypted)
 		print("test_002: Checking what is going on!")
 
 
+	def test_003(self):
+		gpg = gnupg.GPG()
+		gpg.encoding = 'utf-8'
+		message = """-----BEGIN PGP MESSAGE-----
+
+jA0EBwMCCh8jyvfn2RPj0l0BmJ8zvlBA6xEJ9+LbMbSkvCBl0AfdC+NdLeXeU6st
+HaC4I34AqY0zHBB7rOwyxOCbvVXbi2djaseXI16N/g/tnns3D7jChvbtyG5T/ec/
+El5Oq0MsOcNYPD8Wmes=
+=cHQI
+-----END PGP MESSAGE-----"""
+		passphrase = "topsecret"
+		encrypted_byte_like_message = str.encode(message,'utf-8')
+		decrypted = gpg.decrypt(message, 
+			passphrase = passphrase)
+		#print(decrypted.__dict__)
+		"""
+		{'gpg': <gnupg.GPG object at 0x0000016CAA1DE708>, 
+		'valid': False, 'fingerprint': None, 
+		'creation_date': None, 'timestamp': None, 
+		'signature_id': None, 
+		'key_id': None, 
+		'username': None, 
+		'key_status': None, 
+		'status': 'decryption ok', 
+		'pubkey_fingerprint': None, 
+		'expire_timestamp': None, 'sig_timestamp': None, 
+		'trust_text': None, 'trust_level': None, 
+		'sig_info': {}, 
+		'data': 
+			b'148983A563091519643D6CB55FE5F8C3A3795DCA', 
+		'ok': True, 
+		'stderr': 
+		'gpg: AES.CFB encrypted data\n[GNUPG:] NEED_PASSPH
+		RASE_SYM 7 3 2\ngpg: encrypted with 1 passphras
+		e\n[GNUPG:] BEGIN_DECRYPTION\n[GNUPG:] DECRYPTION_C
+		OMPLIANCE_MODE 23\n[GNUPG:] DECRYPTION_INFO 2 7 0\n[GNU
+		PG:] PLAINTEXT 62 1617749602 \n[GNUPG:] PLAINTEXT_LE
+		NGTH 40\n[GNUPG:] DECRYPTION_OKAY\n[GNUPG:] GOODMDC\n
+		[GNUPG:] END_DECRYPTION\n'}
+		"""
+		print(decrypted)
+		self.assertEqual(str(decrypted.data,"utf-8"), 
+			"148983A563091519643D6CB55FE5F8C3A3795DCA")
+		print("test_003:successful_decryption")
 
 
+
+	def test_004_failing_decryption(self):
+		gpg = gnupg.GPG()
+		gpg.encoding = 'utf-8'
+		message = "2132"
+		passphrase = "topsecret"
+		decrypted = gpg.decrypt(message, 
+			passphrase = passphrase)
+		#print((decrypted.__dict__))
+		"""
+		{'gpg': <gnupg.GPG object at 0x000001CF61E7D9C8>, 
+		'valid': False, 
+		'fingerprint': None, 
+		'creation_date': None, 
+		'timestamp': None, 
+		'signature_id': None, 
+		'key_id': 'decrypt 4294967295', 
+		'username': None, 'key_status': None, 
+		'status': 'no data was provided', 
+		'pubkey_fingerprint': None, 
+		'expire_timestamp': None, 
+		'sig_timestamp': None, 
+		'trust_text': None, 
+		'trust_level': None, 
+		'sig_info': {}, 
+		'data': 
+			b'', 
+		'ok': False, 
+		'stderr': 'gpg: no valid OpenPGP data found.\n[GNUPG:] 
+		NODATA 1\n[GNUPG:] NODATA 2\n[GNUPG:] FAILURE decrypt 
+		4294967295\ngpg: decrypt_message failed: Unknown 
+		system error\n'}
+		"""	
+		self.assertEqual(decrypted.ok, False)
+		self.assertEqual(decrypted.status, "no data was provided")
+		print("test_004_failing_decryption")
 
 
 # Make the tests conveniently executable

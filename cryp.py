@@ -1,16 +1,15 @@
 import gnupg
 
-gpg = gnupg.GPG()
 
 
 
-
-def encrypt_gpg(message, passphrase):
+def encrypt_gpg(gpg, data, recipients = None):
 	return gpg.encrypt(data, recipients)
 
-
-def decrypt_gpg(message, passphrase):
-	return gpg.encrypt(data, recipients)
+def decrypt_gpg(gpg, message, passphrase):
+	return gpg.decrypt(message, passphrase = passphrase,
+		always_trust =True)
+	#return gpg.encrypt(data, recipients)
 
 
 

@@ -1,16 +1,20 @@
 from flask import Flask
+import gnupg
+
+app = Flask(__name__)
+gpg = gnupg.GPG()
 
 def get_app():
-	app = Flask(__name__)
 
-	@app.route('/')
+	@app.route("/")
 	def hello_world():
-		return {"message":"Hello, World!"}
+		return {"message":"hello, world!"}
 
 	
-	@app.route('/ping')
+	@app.route("/ping")
 	def pinging():
-		return {"message":"Ping"}
+		return {"message":"ping"}
+	
 	return app
 
 

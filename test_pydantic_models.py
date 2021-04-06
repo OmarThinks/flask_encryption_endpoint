@@ -79,7 +79,7 @@ class Pydantic_2_FailingInputsTestCase(unittest.TestCase):
 		try:
 			data = EncryptionInputs(**external_data)
 		except Exception as e:
-			print(e.json())
+			#print(e.json())
 			self.assertEqual(json.loads(e.json()),[
   		{"loc": ["passphrase"],
     		"msg": "ensure this value has at least 2 characters",
@@ -87,7 +87,31 @@ class Pydantic_2_FailingInputsTestCase(unittest.TestCase):
     		"ctx": {"limit_value": 2}
   		}])
 
-		print("test_002: Failing, shor passphrase")
+		print("test_002: Failing, short passphrase")
+
+
+	def test_003_very_long_string(self):
+		external_data = {
+			'message': "1"*100000000,
+			'passphrase': "1"*100000000
+			}
+		# Very long strings
+		try:
+			data = EncryptionInputs(**external_data)
+		except Exception as e:
+			#print(e.json())
+			self.assertEqual(json.loads(e.json()),[
+		{"loc": ["message"],
+    		"msg": "ensure this value has at most 1000000 characters",
+    		"type": "value_error.any_str.max_length",
+    		"ctx": {"limit_value": 1000000}
+  		},
+		{"loc": ["passphrase"],
+    		"msg": "ensure this value has at most 10000 characters",
+    		"type": "value_error.any_str.max_length",
+    		"ctx": {"limit_value": 10000}}])
+
+		print("test_003: Failing, long passphrase and message")
 
 
 

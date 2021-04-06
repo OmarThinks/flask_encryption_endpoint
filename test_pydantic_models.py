@@ -35,7 +35,7 @@ class Pydantic_1_SuccessfullInputsTestCase(unittest.TestCase):
 		#print(data.dict())
 		self.assertEqual(data,
 			{'message': '123', 'passphrase': '456'})
-		print("test_001: successful, inputs casted to strings")
+		print("test_002: successful, inputs casted to strings")
 
 
 
@@ -61,26 +61,33 @@ class Pydantic_2_FailingInputsTestCase(unittest.TestCase):
 		try:
 			data = EncryptionInputs(**external_data)
 		except Exception as e:
-
+			#print(e.json())
 			self.assertEqual(json.loads(e.json()),[
 		{"loc": ["message"],
     		"msg": "field required","type": "value_error.missing"},
   		{"loc": ["passphrase"],
     		"msg": "field required","type": "value_error.missing"}
 		])
-		print("test_002: Failing: all missing inputs")
+		print("test_001: Failing: all missing inputs")
 
 
-	def test_002_successful_inputs_casting(self):
+	def test_002_very_short_string(self):
 		external_data = {
-			'message': 123,'passphrase': 456
+			'message': "",'passphrase': ""
 			}
-		# Inputs must be casted to strings
-		data = EncryptionInputs(**external_data)
-		#print(data.dict())
-		self.assertEqual(data,
-			{'message': '123', 'passphrase': '456'})
-		print("test_001: successful, inputs casted to strings")
+		# The message could be empty
+		try:
+			data = EncryptionInputs(**external_data)
+		except Exception as e:
+			print(e.json())
+			self.assertEqual(json.loads(e.json()),[
+  		{"loc": ["passphrase"],
+    		"msg": "ensure this value has at least 2 characters",
+    		"type": "value_error.any_str.min_length",
+    		"ctx": {"limit_value": 2}
+  		}])
+
+		print("test_002: Failing, shor passphrase")
 
 
 

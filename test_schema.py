@@ -103,7 +103,7 @@ query($message: String, $passphrase: String){
         )
 }
 """
-		result = schema.execute(query, variables=variables)
+		result = schema.execute(query, variable_values=variables)
 		#print(result)
 		#"{'data': {'decryptMessage': '123'}}"
 		#print(type(result.data))

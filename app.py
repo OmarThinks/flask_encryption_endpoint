@@ -22,7 +22,7 @@ def get_app():
 	@app.route("/decryptMessage", methods=["POST"])
 	@validate()
 	def decryption_end_point(body: DecryptionInputs):
-		print(body.__dict__)
+		#print(body.__dict__)
 		decrypted = decrypt_gpg(
 			encrypted_message = body.message, 
 			passphrase = body.passphrase)

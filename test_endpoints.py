@@ -186,6 +186,32 @@ class _2_EncryptionTestCase(unittest.TestCase):
 
 
 
+class _3_ErrorHandlingTestCase(unittest.TestCase):
+	"""This class represents the trivia test case"""
+
+	def setUp(self):
+		# create and configure the app
+		self.app = get_app() #Flask(__name__)
+		self.client = self.app.test_client
+
+	def tearDown(self):
+		"""Executed after reach test"""
+		print("_+++++++++++++++++++++++++++++++++_")
+
+
+	def test_1_404_not_found(self):
+		response = self.client().post('/hadkhsfkshkfjhsdkjhfkjhsd')
+		self.assertEqual(response.status_code,404)
+		data = json.loads(response.data)
+		#print(data)
+		self.assertEqual(data,
+			{'error': 404, 'message': 'resource not found', 
+			'success': False})
+		print("test_1_404_not_found")
+
+
+
+
 
 
 

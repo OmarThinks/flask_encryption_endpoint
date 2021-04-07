@@ -286,14 +286,48 @@ class Cryp_2_encrypt_gpg(unittest.TestCase):
 		"""Executed after reach test"""
 		print("_+++++++++++++++++++++++++++++++++_")	
 
-	def test_001_sucessfull_ecryption(self):
+	def test_001_sucessfull_encryption(self):
 		encrypted = encrypt_gpg(
 			original="123",passphrase="secret")
 		self.assertEqual(encrypted["success"],True)
 		self.assertEqual(encrypted["status"],
 			"encryption ok")
 		self.assertEqual(type(encrypted["data"]),str)
-		print("test_001_sucessfull_ecryption")
+		print("test_001_sucessfull_encryption")
+		#print(encrypted["data"])
+		"""
+-----BEGIN PGP MESSAGE-----
+
+jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
+HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
+=Bbnl
+-----END PGP MESSAGE-----"""
+
+
+
+
+
+
+
+
+class Cryp_3_decrypt_gpg(unittest.TestCase):
+	def tearDown(self):
+		"""Executed after reach test"""
+		print("_+++++++++++++++++++++++++++++++++_")	
+
+	def test_001_sucessfull_decryption(self):
+		decrypted = decrypt_gpg(
+			encrypted_message= """
+-----BEGIN PGP MESSAGE-----
+
+jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
+HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
+=Bbnl
+-----END PGP MESSAGE-----""",
+			passphrase="secret")
+		print(decrypted)
+		self.assertEqual(decrypted,{'status': 'decryption ok', 'data': '123', 'success': True})
+		print("test_001_sucessfull_decryption")
 		#print(encrypted["data"])
 		"""
 -----BEGIN PGP MESSAGE-----
@@ -303,6 +337,31 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 =Bbnl
 -----END PGP MESSAGE-----
 		"""
+
+
+	def test_001_sucessfull_decryption(self):
+		decrypted = decrypt_gpg(
+			encrypted_message= """
+-----BEGIN PGP MESSAGE-----
+
+jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
+HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
+=Bbnl
+-----END PGP MESSAGE-----""",
+			passphrase="secret")
+		print(decrypted)
+		self.assertEqual(decrypted,{'status': 'decryption ok', 'data': '123', 'success': True})
+		print("test_001_sucessfull_decryption")
+		#print(encrypted["data"])
+		"""
+-----BEGIN PGP MESSAGE-----
+
+jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
+HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
+=Bbnl
+-----END PGP MESSAGE-----
+		"""
+
 
 
 

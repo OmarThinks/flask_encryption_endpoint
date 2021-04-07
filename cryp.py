@@ -19,7 +19,7 @@ def encrypt_gpg(original:str, passphrase:str):
 def decrypt_gpg(encrypted_message, passphrase):
 	gpg = gnupg.GPG()
 	gpg.encoding = 'utf-8'
-	decrypted = gpg.decrypt(str.decode(encrypted_message,"utf-8"), 
+	decrypted = gpg.decrypt(str.encode(encrypted_message,"utf-8"), 
 		passphrase = passphrase)
 	return {
 	"status": decrypted.status,

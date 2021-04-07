@@ -12,11 +12,13 @@ class DecryptionError(Exception):
 
 
 class RootQuery(graphene.ObjectType):
-	encrypt_message = graphene.String()
-	decrypt_message = graphene.String()
+	encrypt_message = graphene.String(
+		original=graphene.String(),passphrase=graphene.String())
+	decrypt_message = graphene.String(
+		message=graphene.String(),passphrase=graphene.String())
 
 	def resolve_encrypt_message(root, info, 
-		original:str, passphrase:str):
+		original, passphrase):
 		encrypted = encrypt_gpg(original = original, 
 			passphrase = passphrase)
 		if encrypted["success"] == True:
@@ -25,7 +27,7 @@ class RootQuery(graphene.ObjectType):
 			raise EncryptionError(encrypted["status"])
 
 	def resolve_decrypt_message(root, info, 
-		message:str, passphrase:str):
+		message, passphrase):
 		decrypted = encrypt_gpg(message = message, 
 			passphrase = passphrase)
 		if decrypted["success"] == True:
@@ -37,4 +39,4 @@ class RootQuery(graphene.ObjectType):
 
 schema = graphene.Schema(query=RootQuery)
 
-print(schema)
+#print(schema)

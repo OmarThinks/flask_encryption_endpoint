@@ -2,6 +2,14 @@ import graphene
 
 from cryp import (encrypt_gpg, decrypt_gpg)
 
+class Encrypt(object):
+	encrypted_message:str
+class Decrypt(object):
+	decrypted_message:str
+
+		
+
+
 class EncryptionResult(graphene.ObjectType):
     encrypted_message = graphene.String()
 
@@ -24,7 +32,7 @@ class RootQuery(graphene.ObjectType):
 		encrypted = encrypt_gpg(original = original, 
 			passphrase = passphrase)
 		if encrypted["success"] == True:
-			return encrypted["data"]
+			return Encrypt(encrypted_message=encrypted["data"])
 		else:
 			raise EncryptionError(encrypted["status"])
 
@@ -33,7 +41,7 @@ class RootQuery(graphene.ObjectType):
 		decrypted = encrypt_gpg(message = message, 
 			passphrase = passphrase)
 		if decrypted["success"] == True:
-			return decrypted["data"]
+			return Decrypt(decrypted_message=encrypted["data"])
 		else:
 			raise DecryptionError(decrypted["status"])
 

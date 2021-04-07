@@ -1,6 +1,6 @@
 import unittest
 
-from pydantic_models import EncryptionInputs
+from pydantic_models import DecryptionInputs
 import json
 
 
@@ -19,7 +19,7 @@ class Pydantic_1_SuccessfullInputsTestCase(unittest.TestCase):
 		external_data = {
 			'message': 'abc','passphrase': 'xyz'
 			}
-		data = EncryptionInputs(**external_data)
+		data = DecryptionInputs(**external_data)
 		#print(data.dict())
 		self.assertEqual(data,
 			{'message': 'abc', 'passphrase': 'xyz'})
@@ -31,7 +31,7 @@ class Pydantic_1_SuccessfullInputsTestCase(unittest.TestCase):
 			'message': 123,'passphrase': 456
 			}
 		# Inputs must be casted to strings
-		data = EncryptionInputs(**external_data)
+		data = DecryptionInputs(**external_data)
 		#print(data.dict())
 		self.assertEqual(data,
 			{'message': '123', 'passphrase': '456'})
@@ -59,7 +59,7 @@ class Pydantic_2_FailingInputsTestCase(unittest.TestCase):
 	def test_001_missing_all_inputs(self):
 		external_data = {}
 		try:
-			data = EncryptionInputs(**external_data)
+			data = DecryptionInputs(**external_data)
 		except Exception as e:
 			#print(e.json())
 			self.assertEqual(json.loads(e.json()),[
@@ -77,7 +77,7 @@ class Pydantic_2_FailingInputsTestCase(unittest.TestCase):
 			}
 		# The message could be empty
 		try:
-			data = EncryptionInputs(**external_data)
+			data = DecryptionInputs(**external_data)
 		except Exception as e:
 			#print(e.json())
 			self.assertEqual(json.loads(e.json()),[
@@ -97,7 +97,7 @@ class Pydantic_2_FailingInputsTestCase(unittest.TestCase):
 			}
 		# Very long strings
 		try:
-			data = EncryptionInputs(**external_data)
+			data = DecryptionInputs(**external_data)
 		except Exception as e:
 			#print(e.json())
 			self.assertEqual(json.loads(e.json()),[

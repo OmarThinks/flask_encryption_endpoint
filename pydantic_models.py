@@ -6,5 +6,9 @@ passphrase_constraint = constr(min_length=2, max_length=10000)
 
 
 class EncryptionInputs(BaseModel):
+   original : message_constraint
+   passphrase : passphrase_constraint
+
+class DecryptionInputs(BaseModel):
    message : message_constraint
    passphrase : passphrase_constraint

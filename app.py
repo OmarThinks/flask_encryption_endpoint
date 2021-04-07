@@ -14,6 +14,10 @@ def get_app():
 	@app.route("/ping")
 	def pinging():
 		return {"message":"ping"}
+
+
+
+
 	
 	return app
 

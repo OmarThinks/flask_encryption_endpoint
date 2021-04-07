@@ -281,6 +281,44 @@ ON\n'}
 
 
 
+class Cryp_2_encrypt_gpg(unittest.TestCase):
+	def tearDown(self):
+		"""Executed after reach test"""
+		print("_+++++++++++++++++++++++++++++++++_")	
+
+	def test_001_sucessfull_ecryption(self):
+		encrypted = encrypt_gpg(
+			original="123",passphrase="secret")
+		self.assertEqual(encrypted["success"],True)
+		self.assertEqual(encrypted["status"],
+			"encryption ok")
+		self.assertEqual(type(encrypted["data"]),str)
+		print("test_001_sucessfull_ecryption")
+		#print(encrypted["data"])
+		"""
+-----BEGIN PGP MESSAGE-----
+
+jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
+HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
+=Bbnl
+-----END PGP MESSAGE-----
+		"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Make the tests conveniently executable
 if __name__ == "__main__":

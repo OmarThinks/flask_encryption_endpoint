@@ -182,6 +182,51 @@ Example: **405**
 
 
 
+# F) Endpoints Documentation:
+
+## F-1) "/"
+
+### Request Method:
+**GET**
+
+### Result:
+
+<b>
+
+```python
+{"message":"hello, world!"}
+```
+</b>
+
+### Reason:
+Just to make sure every thing is up and running.
+
+### Expected inputs:
+None
+
+### Errors:
+None
+
+### Example:
+<b>
+
+```bash
+```
+</b>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -61,7 +61,7 @@ jA0ECQMCVady3RUyJw3X0kcBF+zdkfZOMhISoYBRwR3uk3vNv+TEg+rJnp4/yYISpEoI2S82cDiCNBIV
 		encrypted_ascii_data = gpg.encrypt(key_bytes, 
 			recipients=None, symmetric =True, 
 			passphrase = passphrase)
-		print(encrypted_ascii_data)
+		#print(encrypted_ascii_data)
 		
 		#print(encrypted_ascii_data.__dict__)
 		"""
@@ -85,10 +85,10 @@ jA0ECQMCVady3RUyJw3X0kcBF+zdkfZOMhISoYBRwR3uk3vNv+TEg+rJnp4/yYISpEoI2S82cDiCNBIV
 		"""
 
 		encrypted_byte_like = str(encrypted_ascii_data.data,'utf-8')
-		print(encrypted_byte_like)
+		#print(encrypted_byte_like)
 		decrypted = gpg.decrypt(encrypted_byte_like, 
 			passphrase = passphrase)
-		print(decrypted)
+		#print(decrypted)
 		print("test_002: Checking what is going on!")
 
 
@@ -132,7 +132,7 @@ El5Oq0MsOcNYPD8Wmes=
 		NGTH 40\n[GNUPG:] DECRYPTION_OKAY\n[GNUPG:] GOODMDC\n
 		[GNUPG:] END_DECRYPTION\n'}
 		"""
-		print(decrypted)
+		#print(decrypted)
 		self.assertEqual(str(decrypted.data,"utf-8"), 
 			"148983A563091519643D6CB55FE5F8C3A3795DCA")
 		print("test_003:successful_decryption")
@@ -173,7 +173,7 @@ El5Oq0MsOcNYPD8Wmes=
 		4294967295\ngpg: decrypt_message failed: Unknown 
 		system error\n'}
 		"""	
-		print(decrypted.stderr)
+		#print(decrypted.stderr)
 		self.assertEqual(decrypted.ok, False)
 		self.assertEqual(decrypted.status, "no data was provided")
 		print("test_004_failing_decryption")
@@ -185,19 +185,66 @@ El5Oq0MsOcNYPD8Wmes=
 
 	def test_005_before_encryption_after_decryption(self):
 		gpg = gnupg.GPG()
-		data = "123"
+		original = "123"
 		gpg.encoding = 'utf-8'
-		message = "2132"
 		passphrase = "topsecret"
-		encrypted_data = gpg.encrypt(data, 
+		encrypted_data = gpg.encrypt(original, 
 			passphrase = passphrase, recipients=None, 
 			symmetric = True)
-		print((encrypted_data.__dict__))
-		
+		#print((encrypted_data.__dict__))
+		"""
+{'gpg': <gnupg.GPG object at 0x000001EDD313CC48>, 
+'valid': False, 'fingerprint': None, 'creation_date': None, 
+'timestamp': None, 'signature_id': None, 'key_id': None, 
+'username': None, 'key_status': None, 
+
+'status': 'encryption ok', 
+
+'pubkey_fingerprint': None, 'expire_timestamp': None, 
+'sig_timestamp': None, 'trust_text': None, 'trust_level': None, 
+'sig_info': {}, 
+
+'data': b'-----BEGIN PGP MESSAGE-----\n\njA0EBwMCfOkvRdwM7MDn0j
+gBnBq714pZz0955bTNE1IrIbL4nstjIibQOOoCHQkq\nqmu3HNs4
+N0jXS3yDjaqc3F+n6Vrj/Cf/oQ==\n=QeTC\n-----END PGP MESSAGE--
+---\n', 
+
+'ok': True, 
+
+'stderr': '[GNUPG:] PROGRESS need_entropy X 32 128\n[GNUPG:] PROGR
+ESS need_entropy X 128 128\n[GNUPG:] NEED_PASSPHRASE_SYM 7 3 2
+\n[GNUPG:] BEGIN_ENCRYPTION 2 7\n[GNUPG:] END_ENCRYPTION\n'}		
+		"""
 		decrypted = gpg.decrypt(str(encrypted_data.data,"utf-8"), 
 			passphrase = passphrase)
-		print(((decrypted.__dict__)))
-		print((str(decrypted.data,"utf-8")))
+		#print(((decrypted.__dict__)))
+		"""
+{'gpg': <gnupg.GPG object at 0x000001EDD313CC48>, 'valid': False, 
+'fingerprint': None, 'creation_date': None, 'timestamp': None, 
+'signature_id': None, 'key_id': None, 'username': None, 
+'key_status': None, 
+
+'status': 'decryption ok', 
+'pubkey_fingerprint': None, 'expire_timestamp': None, 
+'sig_timestamp': None, 'trust_text': None, 'trust_level': None, 
+'sig_info': {}, 
+
+
+'data': b'123', 
+
+'ok': True, 
+
+'stderr': 'gpg: AES.CFB encrypted data\n[GNUPG:] NE
+ED_PASSPHRASE_SYM 7 3 2\ngpg: encrypted with 1 passp
+hrase\n[GNUPG:] BEGIN_DECRYPTION\n[GNUPG:] DECRYPTI
+ON_COMPLIANCE_MODE 23\n[GNUPG:] DECRYPTION_INFO 2 7 0\n[GNUP
+G:] PLAINTEXT 62 1617792579 \n[GNUPG:] PLAINTEXT_LENGTH 3\n[GNUP
+G:] DECRYPTION_OKAY\n[GNUPG:] GOODMDC\n[GNUPG:] END_DECRYPTI
+ON\n'}
+"""		
+		#print((str(decrypted.data,"utf-8")))
+		decrypted_string = str(decrypted.data,"utf-8")
+		self.assertEqual(decrypted_string,original)
 		"""
 		{'gpg': <gnupg.GPG object at 0x000001CF61E7D9C8>, 
 		'valid': False, 
@@ -225,7 +272,7 @@ El5Oq0MsOcNYPD8Wmes=
 		#print(decrypted.stderr)
 		#self.assertEqual(decrypted.ok, False)
 		#self.assertEqual(decrypted.status, "no data was provided")
-		print("test_005_failing_decryption")
+		print("test_005_before_encryption_after_decryption")
 
 
 

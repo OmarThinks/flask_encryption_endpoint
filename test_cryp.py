@@ -16,9 +16,6 @@ class Cryp_1_SuccesstullEncryption(unittest.TestCase):
 		"""Executed after reach test"""
 		print("_+++++++++++++++++++++++++++++++++_")	
 
-	def test_000(self):
-		print("Strating Successful Tests")
-		print("test_000: Hello, tests!")
 
 	def test_001(self):
 		print("Strating Successful Tests")

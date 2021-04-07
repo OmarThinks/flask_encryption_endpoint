@@ -210,6 +210,17 @@ class _3_ErrorHandlingTestCase(unittest.TestCase):
 		print("test_1_404_not_found")
 
 
+	def test_5_405_method_not_allowed(self):
+		response = self.client().get('/encryptOriginal')
+		self.assertEqual(response.status_code,405)
+		data = json.loads(response.data)
+		#print(data)
+		self.assertEqual(data,
+			{'error': 405, 'message': 'method not allowed', 
+			'success': False})
+		print("test_1_404_not_found")
+
+
 
 
 

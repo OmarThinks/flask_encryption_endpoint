@@ -130,20 +130,16 @@ class _2_EncryptionTestCase(unittest.TestCase):
 
 
 	def test_1_successfull_encryption(self):
-		original = """-----BEGIN PGP MESSAGE-----
-
-jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
-HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
-=Bbnl
------END PGP MESSAGE-----"""
+		original = "123"
 		passphrase = "secret"
 		response = self.client().post('/encryptOriginal',
 			json={"original":original,"passphrase":passphrase})
 		self.assertEqual(response.status_code,200)
 		data = json.loads(response.data)
-		self.assertEqual(data,{'DecryptedMessage': '123'})
+		self.assertEqual(type(data["EncryptedMessage"]),str)
+		self.assertEqual(len(data["EncryptedMessage"])>50,True)
 		#print(data)
-		print("test_1_successfull_decryption")
+		print("test_1_successfull_encryption")
 
 	def test_2_failing_pydantic(self):
 		response = self.client().post('/encryptOriginal',
@@ -186,29 +182,6 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 
 
 
-
-	def test_4_failing_decryption(self):
-		original = "123"
-		passphrase = "secret"
-		response = self.client().post('/encryptOriginal',
-			json={"original":original,"passphrase":passphrase})
-		#print(response.data)
-		self.assertEqual(response.status_code,422)
-		data = json.loads(response.data)
-		self.assertEqual(data,
-			{'validation_error': 
-				{'body_params': 
-					[
-						{
-							'loc': ['original'], 
-							'msg': 'no data was provided', 
-						'type': 'value_error.decryption_failure'
-						}
-					]
-				}
-			})
-		#print(data)
-		print("test_4_failing_decryption")
 
 
 

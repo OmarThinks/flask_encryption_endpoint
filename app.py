@@ -6,6 +6,12 @@ from cryp import (encrypt_gpg, decrypt_gpg)
 
 from flask_pydantic import validate
 
+
+
+from flask_graphql import GraphQLView
+from schema import schema
+
+
 def get_app():
 	app = Flask(__name__)
 
@@ -71,6 +77,11 @@ def get_app():
 			}),422
 
 
+
+
+	app.add_url_rule('/graphql', view_func=GraphQLView.as_view(
+		'graphql', schema=schema, graphiql=True,
+	))
 
 
 

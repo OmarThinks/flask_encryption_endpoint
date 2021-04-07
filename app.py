@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-import gnupg
+
 
 from pydantic_models import (EncryptionInputs,DecryptionInputs)
 from cryp import (encrypt_gpg, decrypt_gpg)

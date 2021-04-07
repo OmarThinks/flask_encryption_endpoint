@@ -9,6 +9,8 @@ from flask import Flask, request, abort, jsonify
 
 from app import get_app
 
+from graphene.test import Client as GClient
+from schema import schema
 
 unittest.TestLoader.sortTestMethodsUsing = None
 
@@ -219,11 +221,6 @@ class _3_ErrorHandlingTestCase(unittest.TestCase):
 			{'error': 405, 'message': 'method not allowed', 
 			'success': False})
 		print("test_1_404_not_found")
-
-
-
-
-
 
 
 

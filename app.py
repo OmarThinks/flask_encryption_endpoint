@@ -128,4 +128,4 @@ def get_app():
 
 if __name__ == '__main__':
 	app = get_app()
-	app.run(debug = True)
+	app.run(debug = False, port = 80, host="0.0.0.0")

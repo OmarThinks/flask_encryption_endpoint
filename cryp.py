@@ -3,7 +3,7 @@ import gnupg
 
 
 
-def encrypt_gpg(gpg, original:str, passphrase:str):
+def encrypt_gpg(original:str, passphrase:str):
 	gpg = gnupg.GPG()
 	original = "123"
 	gpg.encoding = 'utf-8'
@@ -13,13 +13,19 @@ def encrypt_gpg(gpg, original:str, passphrase:str):
 	return {
 	"status": encrypted_data.status,
 	"data": str(encrypted_data.data,"utf-8"),
-	"success":encrypted_data.success
+	"success":encrypted_data.ok
 	}	
 
-def decrypt_gpg(gpg, message, passphrase):
-	return gpg.decrypt(message, passphrase = passphrase,
-		always_trust =True)
-	#return gpg.encrypt(data, recipients)
+def decrypt_gpg(encrypted_message, passphrase):
+	gpg = gnupg.GPG()
+	gpg.encoding = 'utf-8'
+	decrypted = gpg.decrypt(str.decode(encrypted_message,"utf-8"), 
+		passphrase = passphrase)
+	return {
+	"status": decrypted.status,
+	"data": str(decrypted.data,"utf-8"),
+	"success":decrypted.ok
+	}
 
 
 

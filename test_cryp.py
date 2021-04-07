@@ -139,6 +139,8 @@ El5Oq0MsOcNYPD8Wmes=
 
 
 
+
+
 	def test_004_failing_decryption(self):
 		gpg = gnupg.GPG()
 		gpg.encoding = 'utf-8'
@@ -175,6 +177,62 @@ El5Oq0MsOcNYPD8Wmes=
 		self.assertEqual(decrypted.ok, False)
 		self.assertEqual(decrypted.status, "no data was provided")
 		print("test_004_failing_decryption")
+
+
+
+
+
+
+	def test_005_before_encryption_after_decryption(self):
+		gpg = gnupg.GPG()
+		data = "123"
+		gpg.encoding = 'utf-8'
+		message = "2132"
+		passphrase = "topsecret"
+		encrypted_data = gpg.encrypt(data, 
+			passphrase = passphrase, recipients=None, 
+			symmetric = True)
+		print((encrypted_data.__dict__))
+		
+		decrypted = gpg.decrypt(str(encrypted_data.data,"utf-8"), 
+			passphrase = passphrase)
+		print(((decrypted.__dict__)))
+		print((str(decrypted.data,"utf-8")))
+		"""
+		{'gpg': <gnupg.GPG object at 0x000001CF61E7D9C8>, 
+		'valid': False, 
+		'fingerprint': None, 
+		'creation_date': None, 
+		'timestamp': None, 
+		'signature_id': None, 
+		'key_id': 'decrypt 4294967295', 
+		'username': None, 'key_status': None, 
+		'status': 'no data was provided', 
+		'pubkey_fingerprint': None, 
+		'expire_timestamp': None, 
+		'sig_timestamp': None, 
+		'trust_text': None, 
+		'trust_level': None, 
+		'sig_info': {}, 
+		'data': 
+			b'', 
+		'ok': False, 
+		'stderr': 'gpg: no valid OpenPGP data found.\n[GNUPG:] 
+		NODATA 1\n[GNUPG:] NODATA 2\n[GNUPG:] FAILURE decrypt 
+		4294967295\ngpg: decrypt_message failed: Unknown 
+		system error\n'}
+		"""	
+		#print(decrypted.stderr)
+		#self.assertEqual(decrypted.ok, False)
+		#self.assertEqual(decrypted.status, "no data was provided")
+		print("test_005_failing_decryption")
+
+
+
+
+
+
+
 
 
 # Make the tests conveniently executable

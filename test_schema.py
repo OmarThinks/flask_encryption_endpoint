@@ -25,9 +25,32 @@ query{
 	)
 }
 		"""
-		print(query)
+		#print(query)
+		"""
+query{
+        encryptMessage(
+                original:"123",
+                passphrase:"secret",
+        )
+}
+"""
 		result = schema.execute(query)
-		print(result)
+		#print(result)
+		"""
+{
+	'data': 
+	{
+		'encryptMessage': '-----BEGIN PGP MESSAGE-----\n\n
+		jA0EBwMCLuWD7sIvaOrn0jgBMQ+4bBuhr9h+HSy7C0jsftKFJ9
+		5Y7+f0xHuiPYxd\nuGLK9yODSo6mWy1zr2v+40936qPMXFvC2g==
+		\n=lzBk\n-----END PGP MESSAGE-----\n'
+	}
+}
+		"""
+		#print(type(result.data))
+		#print((result.data))
+		self.assertEqual(type(
+			result.data["encryptMessage"]),str)
 		print("test_001: successful")
 
 

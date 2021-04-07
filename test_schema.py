@@ -37,21 +37,48 @@ query{
 		result = schema.execute(query)
 		#print(result)
 		"""
-{
-	'data': 
-	{
-		'encryptMessage': '-----BEGIN PGP MESSAGE-----\n\n
-		jA0EBwMCLuWD7sIvaOrn0jgBMQ+4bBuhr9h+HSy7C0jsftKFJ9
-		5Y7+f0xHuiPYxd\nuGLK9yODSo6mWy1zr2v+40936qPMXFvC2g==
-		\n=lzBk\n-----END PGP MESSAGE-----\n'
-	}
-}
+{'data': {'encryptMessage': 
+'-----BEGIN PGP MESSAGE-----\n\njA0EBwMCnfx01GLicp7n0jgBK25j4EwOm+rM85AVyJv6p1uuhY1wY8oNP5dLKEB0\nvs7PW5hz2KM+D3+eBa/LXZI90MmCQEQQQA==\n=O6rp\n-----END PGP MESSAGE-----\n'
+}}
 		"""
 		#print(type(result.data))
 		#print((result.data))
 		self.assertEqual(type(
 			result.data["encryptMessage"]),str)
 		print("test_001: successful")
+
+
+	def test_002_missing_inputs(self):
+		query = "query{encryptMessage()}"
+
+		result = schema.execute(query)
+		#print(result)
+		"""
+{'errors': [{'message': 'Syntax Error GraphQL (1:22) Expected Name, 
+found )\n\n1: query{encryptMessage()}\n                        ^\n', 
+'locations': [{'line': 1, 'column': 22}]}]}
+		"""
+		try:
+			result.data
+			raise Exception("result does not have data")
+		except Exception as e:
+			pass
+		print("test_002_missing_inputs")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Make the tests conveniently executable

@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 import gnupg
 
 from pydantic_models import (EncryptionInputs,DecryptionInputs)
@@ -26,7 +26,10 @@ def get_app():
 		decrypted = decrypt_gpg(
 			encrypted_message = body.message, 
 			passphrase = body.passphrase)
-		return decrypted
+		if decrypted["success"] == True:
+			return {"DecryptedMessage":decrypted["data"]}
+		else:
+			return jsonify({"error":decrypted["status"]}),422
 	return app
 
 

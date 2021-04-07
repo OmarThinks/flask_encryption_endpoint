@@ -37,16 +37,42 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 			json={"message":message,"passphrase":passphrase})
 		self.assertEqual(response.status_code,200)
 		data = json.loads(response.data)
-		self.assertEqual(data,{'data': '123', 
-			'status': 'decryption ok', 
-			'success': True})
-		print(data)
+		self.assertEqual(data,{'DecryptedMessage': '123'})
+		#print(data)
+		print("test_1_successfull_decryption")
+
+	def test_2_failing_pydantic(self):
+		message = "123"
+		passphrase = "secret"
+		response = self.client().post('/decryptMessage',
+			json={})
+		#print(response.data)
+		self.assertEqual(response.status_code,400)
+		data = json.loads(response.data)
+		#print(data)
+		self.assertEqual(data,
+			{'validation_error': 
+				{'body_params': 
+					[
+						{
+							'loc': ['message'], 
+							'msg': 'field required', 
+							'type': 'value_error.missing'
+						}, 
+						{	
+							'loc': ['passphrase'], 
+							'msg': 'field required', 
+							'type': 'value_error.missing'
+						}
+					]
+				}
+			})
+		print("test_2_failing_pydantic")
 
 
 
 
-
-	def test_2_failing_decryption(self):
+	def test_3_failing_decryption(self):
 		message = "123"
 		passphrase = "secret"
 		response = self.client().post('/decryptMessage',

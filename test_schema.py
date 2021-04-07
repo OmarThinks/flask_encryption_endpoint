@@ -113,14 +113,15 @@ query($message: String, $passphrase: String){
 
 
 	def test_002_missing_inputs(self):
-		query = "query{encryptMessage()}"
+		query = "query{decryptMessage()}"
 
 		result = schema.execute(query)
 		#print(result)
 		"""
 {'errors': [{'message': 'Syntax Error GraphQL (1:22) Expected Name, 
-found )\n\n1: query{encryptMessage()}\n                        ^\n', 
-'locations': [{'line': 1, 'column': 22}]}]}
+found )\n\n1: query{decryptMessage()
+}\n                        ^\n', 'locations': [{'line': 1, 
+'column': 22}]}]}
 		"""
 		try:
 			result.data

@@ -42,8 +42,6 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 		print("test_1_successfull_decryption")
 
 	def test_2_failing_pydantic(self):
-		message = "123"
-		passphrase = "secret"
 		response = self.client().post('/decryptMessage',
 			json={})
 		#print(response.data)
@@ -68,6 +66,19 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 				}
 			})
 		print("test_2_failing_pydantic")
+
+	def test_3_empty_request_body(self):
+		message = "123"
+		passphrase = "secret"
+		response = self.client().post('/decryptMessage')
+		#print(response.data)
+		self.assertEqual(response.status_code,415)
+		data = json.loads(response.data)
+		print(data)
+		self.assertEqual(data,
+			{'detail': "Unsupported media type '' in request."+
+			" 'application/json' is required."})
+		print("test_3_empty_request_body")
 
 
 

@@ -18,11 +18,13 @@ djangorestframework-simplejwt==4.6.0
 djoser==2.1.0
 Flask==1.1.2
 Flask-GnuPG==1.0.0
+Flask-GraphQL==2.0.1
 Flask-Pydantic==0.7.0
 graphene==2.1.8
 graphene-django==2.15.0
 graphql-core==2.3.2
 graphql-relay==2.0.1
+graphql-server-core==1.2.0
 idna==2.10
 importlib-metadata==1.7.0
 itsdangerous==1.1.0

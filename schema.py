@@ -28,7 +28,7 @@ class RootQuery(graphene.ObjectType):
 
 	def resolve_decrypt_message(root, info, 
 		message, passphrase):
-		decrypted = encrypt_gpg(message = message, 
+		decrypted = decrypt_gpg(encrypted_message = message, 
 			passphrase = passphrase)
 		if decrypted["success"] == True:
 			return decrypted["data"]

@@ -78,40 +78,37 @@ class Schema_2_DecryptionTestCase(unittest.TestCase):
 		print("_+++++++++++++++++++++++++++++++++_")	
 
 	def test_000(self):
-		print("Strating Encryption Tests")
+		print("Strating Decryption Tests")
 		print("test_000: Hello, tests!")
 
 	
 	def test_001_successful_inputs(self):
-		variables = {"original": "123","passphrase":"secret"}
+		message='-----BEGIN PGP MESSAGE-----\n\njA0EBwMCnfx01GLicp7n0jgBK25j4EwOm+rM85AVyJv6p1uuhY1wY8oNP5dLKEB0\nvs7PW5hz2KM+D3+eBa/LXZI90MmCQEQQQA==\n=O6rp\n-----END PGP MESSAGE-----\n'
+		variables = {"message": message,"passphrase":"secret"}
 		query = """
-query{
-	encryptMessage(
-		original:\""""+variables["original"]+"""\",
-		passphrase:\""""+variables["passphrase"]+"""\",
-	)
+query($message: String, $passphrase: String)
+{
+    decryptMessage(
+        message:$message,
+        passphrase:$passphrase,
+        )
 }
 		"""
 		#print(query)
 		"""
-query{
-        encryptMessage(
-                original:"123",
-                passphrase:"secret",
+query($message: String, $passphrase: String){
+    decryptMessage(
+        message:$message,
+        passphrase:$passphrase,
         )
 }
 """
-		result = schema.execute(query)
+		result = schema.execute(query, variables=variables)
 		#print(result)
-		"""
-{'data': {'encryptMessage': 
-'-----BEGIN PGP MESSAGE-----\n\njA0EBwMCnfx01GLicp7n0jgBK25j4EwOm+rM85AVyJv6p1uuhY1wY8oNP5dLKEB0\nvs7PW5hz2KM+D3+eBa/LXZI90MmCQEQQQA==\n=O6rp\n-----END PGP MESSAGE-----\n'
-}}
-		"""
+		#"{'data': {'decryptMessage': '123'}}"
 		#print(type(result.data))
 		#print((result.data))
-		self.assertEqual(type(
-			result.data["encryptMessage"]),str)
+		self.assertEqual(result.data["decryptMessage"],"123")
 		print("test_001: Decryption successful")
 
 

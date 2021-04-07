@@ -102,7 +102,47 @@ python test_schema.py
 	<th>number</th>
 	<th>path</th>
 	<th>methods</th>
+	<th>Function</th>
 </tr>
+
+
+
+
+<tr>
+	<td>1</td>
+	<td>"/"</td>
+	<td>GET</td>
+	<td>Make sure every thing is up and running</td>
+</tr>
+
+<tr>
+	<td>2</td>
+	<td>"/ping"</td>
+	<td>GET</td>
+	<td>Make sure every thing is up and running</td>
+</tr>
+
+<tr>
+	<td>3</td>
+	<td>"/decryptMessage"</td>
+	<td>POST</td>
+	<td>Decrypt the message using passphrase</td>
+</tr>
+
+<tr>
+	<td>4</td>
+	<td>"/encryptOriginal"</td>
+	<td>POST</td>
+	<td>Encrypt original test using passphrase</td>
+</tr>
+
+<tr>
+	<td>5</td>
+	<td>"/graphql"</td>
+	<td>GET</td>
+	<td>Encrypt and decrypt using the pass phrase</td>
+</tr>
+
 </table>
 
 

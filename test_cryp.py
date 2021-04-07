@@ -317,16 +317,17 @@ class Cryp_3_decrypt_gpg(unittest.TestCase):
 
 	def test_001_sucessfull_decryption(self):
 		decrypted = decrypt_gpg(
-			encrypted_message= """
------BEGIN PGP MESSAGE-----
+			encrypted_message= """-----BEGIN PGP MESSAGE-----
 
 jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
 HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 =Bbnl
 -----END PGP MESSAGE-----""",
 			passphrase="secret")
-		print(decrypted)
-		self.assertEqual(decrypted,{'status': 'decryption ok', 'data': '123', 'success': True})
+		#print(decrypted)
+		self.assertEqual(decrypted,{
+			'status': 'decryption ok', 'data': '123', 
+			'success': True})
 		print("test_001_sucessfull_decryption")
 		#print(encrypted["data"])
 		"""
@@ -339,19 +340,15 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 		"""
 
 
-	def test_001_sucessfull_decryption(self):
+	def test_002_failing_decryption(self):
 		decrypted = decrypt_gpg(
-			encrypted_message= """
------BEGIN PGP MESSAGE-----
-
-jA0EBwMCtzzONNqLoY7n0jgBm/A6tUAsixA0D9CidvUp0IbSScjAZReHt7BD8q+X
-HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
-=Bbnl
------END PGP MESSAGE-----""",
+			encrypted_message= """wrong message""",
 			passphrase="secret")
-		print(decrypted)
-		self.assertEqual(decrypted,{'status': 'decryption ok', 'data': '123', 'success': True})
-		print("test_001_sucessfull_decryption")
+		#print(decrypted)
+		self.assertEqual(decrypted,{
+			'status': 'no data was provided', 
+			'data': '', 'success': False})
+		print("test_002_failing_decryption")
 		#print(encrypted["data"])
 		"""
 -----BEGIN PGP MESSAGE-----

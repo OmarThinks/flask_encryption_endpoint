@@ -93,7 +93,7 @@ python test_schema.py
 
 
 
-# Endpoints:
+# D) Endpoints:
 
 
 
@@ -144,6 +144,45 @@ python test_schema.py
 </tr>
 
 </table>
+
+
+
+# E) General Errors:
+
+Example: **404**
+<b>
+
+```python
+{
+	'error': 404, 
+	'message': 'resource not found', 
+	'success': False
+}
+```
+</b>
+
+
+Example: **405**
+<b>
+
+```python
+{
+	'error': 405, 
+	'message': 'method not allowed', 
+	'success': False
+}
+```
+</b>
+
+
+
+
+
+
+
+
+
+
 
 
 

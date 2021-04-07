@@ -47,6 +47,35 @@ def get_app():
 
 
 
+	@app.route("/encryptMessage", methods=["POST"])
+	@validate()
+	def encryption_end_point(body: EncryptionInputs):
+		#print(body.__dict__)
+		encrypted = encrypt_gpg(
+			original = body.original, 
+			passphrase = body.passphrase)
+		if encrypted["success"] == True:
+			return {"EncryptedMessage":encrypted["data"]}
+		else:
+			return jsonify(
+				{'validation_error': 
+				{'body_params': 
+					[
+						{
+							'loc': ['message'], 
+							'msg': encrypted["status"], 
+						'type': 'value_error.decryption_failure'
+						}
+					]}
+			}),422
+	return app
+
+
+
+
+
+
+
 
 
 if __name__ == '__main__':

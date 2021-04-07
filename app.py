@@ -29,7 +29,17 @@ def get_app():
 		if decrypted["success"] == True:
 			return {"DecryptedMessage":decrypted["data"]}
 		else:
-			return jsonify({"error":decrypted["status"]}),422
+			return jsonify(
+				{'validation_error': 
+				{'body_params': 
+					[
+						{
+							'loc': ['message'], 
+							'msg': decrypted["status"], 
+						'type': 'value_error.decryption_failure'
+						}
+					]}
+			}),422
 	return app
 
 

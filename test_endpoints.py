@@ -74,7 +74,7 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 		#print(response.data)
 		self.assertEqual(response.status_code,415)
 		data = json.loads(response.data)
-		print(data)
+		#print(data)
 		self.assertEqual(data,
 			{'detail': "Unsupported media type '' in request."+
 			" 'application/json' is required."})
@@ -83,15 +83,28 @@ HPL27ysOSglIxAdDWMxDSV692yYbbtO6yw==
 
 
 
-	def test_3_failing_decryption(self):
+	def test_4_failing_decryption(self):
 		message = "123"
 		passphrase = "secret"
 		response = self.client().post('/decryptMessage',
 			json={"message":message,"passphrase":passphrase})
 		#print(response.data)
-		self.assertEqual(response.status_code,200)
+		self.assertEqual(response.status_code,422)
 		data = json.loads(response.data)
+		self.assertEqual(data,
+			{'validation_error': 
+				{'body_params': 
+					[
+						{
+							'loc': ['message'], 
+							'msg': 'no data was provided', 
+						'type': 'value_error.decryption_failure'
+						}
+					]
+				}
+			})
 		#print(data)
+		print("test_4_failing_decryption")
 
 
 

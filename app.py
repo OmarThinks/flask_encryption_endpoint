@@ -47,7 +47,7 @@ def get_app():
 
 
 
-	@app.route("/encryptMessage", methods=["POST"])
+	@app.route("/encryptOriginal", methods=["POST"])
 	@validate()
 	def encryption_end_point(body: EncryptionInputs):
 		#print(body.__dict__)

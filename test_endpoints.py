@@ -9,8 +9,6 @@ from flask import Flask, request, abort, jsonify
 
 from app import get_app
 
-from graphene.test import Client as GClient
-from schema import schema
 
 unittest.TestLoader.sortTestMethodsUsing = None
 

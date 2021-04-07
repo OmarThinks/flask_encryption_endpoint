@@ -101,11 +101,6 @@ class Pydantic_2_FailingInputsTestCase(unittest.TestCase):
 		except Exception as e:
 			#print(e.json())
 			self.assertEqual(json.loads(e.json()),[
-		{"loc": ["message"],
-    		"msg": "ensure this value has at most 1000000 characters",
-    		"type": "value_error.any_str.max_length",
-    		"ctx": {"limit_value": 1000000}
-  		},
 		{"loc": ["passphrase"],
     		"msg": "ensure this value has at most 10000 characters",
     		"type": "value_error.any_str.max_length",

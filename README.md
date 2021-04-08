@@ -25,6 +25,7 @@ Endpoint that encrypts and decrypts strings using flask.
 3. **Shell**
 4. **Docker**
 5. **Testing**
+6. **GraphiQL**
 
 
 
@@ -194,7 +195,9 @@ Example: **405**
 <b>
 
 ```python
-{"message":"hello, world!"}
+{
+	"message":"hello, world!"
+}
 ```
 </b>
 
@@ -207,10 +210,72 @@ None
 ### Errors:
 None
 
-### Example:
+### Examples:
 <b>
 
 ```bash
+curl --location --request GET 'http://127.0.0.1/'
+```
+</b>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## F-2) "/ping"
+
+### Request Method:
+**GET**
+
+### Result:
+
+<b>
+
+```python
+{
+    "message": "ping"
+}
+```
+</b>
+
+### Reason:
+Just to make sure every thing is up and running.
+
+### Expected inputs:
+None
+
+### Errors:
+None
+
+### Examples:
+<b>
+
+```bash
+curl --location --request GET 'http://127.0.0.1/ping'
 ```
 </b>
 

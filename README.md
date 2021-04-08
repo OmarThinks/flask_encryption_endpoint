@@ -388,7 +388,7 @@ None
 
 
 
-## F-3) "/encryptMessage"
+## F-3) "/decryptMessage"
 
 ### Request Method:
 **POST**
@@ -541,6 +541,114 @@ Response:
 }
 ```
 </b>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## F-4) "/encryptOriginal"
+
+### Request Method:
+**POST**
+
+
+### Reason:
+Encrypted a message using a passphrase.
+
+### Expected inputs:
+
+
+
+<table>
+	<tr>
+		<th>Number</th>
+		<th>Name</th>
+		<th>Location</th>
+		<th>Type</th>
+		<th>Function</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>original</td>
+		<td>Request Body</td>
+		<td>String</td>
+		<td>The message to will be encrypted</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>passphrase</td>
+		<td>Request Body</td>
+		<td>String</td>
+		<td>The passphrase that will be used to 
+		encrypt the message</td>
+	</tr>
+</table>
+
+
+
+
+### Examples:
+<b>
+
+Request:
+```bash
+curl --location --request POST 'http://127.0.0.1/encryptOriginal' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "original":"123",
+    "passphrase":"secret"
+}'
+```
+Response:
+
+```bash
+{
+    "EncryptedMessage": "-----BEGIN PGP MESSAGE-----\n\njA0EBwMCW3U04lwYEFnn0jgB8sKSfM2ZjeiSqtUD7g3De25h4PDVryTK1Wdlaiz7\nNuoiZu5/539p8qeqEI2+SCrD7wavUrubLQ==\n=WT8y\n-----END PGP MESSAGE-----\n"
+}
+```
+
+</b>
+
+
+
+
+
+### Errors:
+1. **No Inputs:**
+
+The same as the endpoint (decryptMessage)
+
+
+2. **Missing Inputs:**
+
+The same as the endpoint (decryptMessage)
+
+
+
 
 
 

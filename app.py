@@ -29,7 +29,7 @@ def get_app():
 	@validate()
 	def decryption_end_point(body: DecryptionInputs):
 		#print(body.__dict__)
-		print(body.message,flush=True)
+		#print(body.message,flush=True)
 		decrypted = decrypt_gpg(
 			encrypted_message = body.message, 
 			passphrase = body.passphrase)

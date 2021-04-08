@@ -3,7 +3,6 @@
 *.sqlite
 *.sqlite3
 
-*.zip
 src/env
 src/env/*
 .vscode/*

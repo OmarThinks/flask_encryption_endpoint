@@ -750,23 +750,96 @@ The same as the endpoint (decryptMessage)
 
 
 
-### Examples:
+### Example 1 : Encryption:
 <b>
 
 Request:
+
+Query:
 ```bash
-curl --location --request POST 'http://127.0.0.1/encryptOriginal' \
+query($original: String, $passphrase: String)
+{
+    encryptMessage(
+        original:$original,
+        passphrase:$passphrase,
+        )
+}
+```
+Variables:
+
+```python
+{
+    "original" : "123",
+    "passphrase": "secret" 
+}
+```
+
+
+Request:
+
+```bash
+curl --location --request GET 'http://127.0.0.1/graphql' \
 --header 'Content-Type: application/json' \
---data-raw '{
-    "original":"123",
-    "passphrase":"secret"
-}'
+--data-raw '{"query":"query($original: String, $passphrase: String)\r\n{\r\n    encryptMessage(\r\n        original:$original,\r\n        passphrase:$passphrase,\r\n        )\r\n}","variables":{"original":"123","passphrase":"secret"}}'
 ```
 Response:
 
 ```bash
 {
-    "EncryptedMessage": "-----BEGIN PGP MESSAGE-----\n\njA0EBwMCW3U04lwYEFnn0jgB8sKSfM2ZjeiSqtUD7g3De25h4PDVryTK1Wdlaiz7\nNuoiZu5/539p8qeqEI2+SCrD7wavUrubLQ==\n=WT8y\n-----END PGP MESSAGE-----\n"
+    "data": {
+        "encryptMessage": "-----BEGIN PGP MESSAGE-----\n\njA0EBwMCK737ynSdPM7n0jgBOnTxI/ZhZRAztTkO7LCZT+Zjt75zPmOQu4Gi3rBN\n//ht8Dt4nAI5e12kSKSiToJdwBObWtqIow==\n=ZL9T\n-----END PGP MESSAGE-----\n"
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
+### Example 2 : Decryption:
+<b>
+
+Request:
+
+Query:
+```bash
+query($message: String, $passphrase: String)
+{
+    decryptMessage(
+        message:$message,
+        passphrase:$passphrase,
+        )
+}
+```
+Variables:
+
+```python
+{
+  "message" : "-----BEGIN PGP MESSAGE-----\n\njA0EBwMCKdd6Omh24p/n0jgB7VOMQlI3WSCCLEI9zE9wiDgm4XRLZfd5UZn75dNx\nDaGpbhz5ZHhKnyqDKW6jlhnykwkQ/DF1CA==\n=t4JP\n-----END PGP MESSAGE-----\n",
+	"passphrase": "secret"
+}
+```
+
+
+Request:
+
+```bash
+curl --location --request GET 'http://127.0.0.1/graphql' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"query($message: String, $passphrase: String)\r\n{\r\n    decryptMessage(\r\n        message:$message,\r\n        passphrase:$passphrase,\r\n        )\r\n}","variables":{"message":"-----BEGIN PGP MESSAGE-----\n\njA0EBwMCKdd6Omh24p/n0jgB7VOMQlI3WSCCLEI9zE9wiDgm4XRLZfd5UZn75dNx\nDaGpbhz5ZHhKnyqDKW6jlhnykwkQ/DF1CA==\n=t4JP\n-----END PGP MESSAGE-----\n","passphrase":"secret"}}'
+```
+Response:
+
+```bash
+{
+    "data": {
+        "decryptMessage": "123"
+    }
 }
 ```
 
@@ -779,12 +852,36 @@ Response:
 ### Errors:
 1. **No Inputs:**
 
-The same as the endpoint (decryptMessage)
+<b>
+
+Request:
+
+```bash
+curl --location --request GET 'http://127.0.0.1/graphql' \
+--header 'Content-Type: application/json' \
+--data-raw '{"query":"query()\r\n{decryptMessage}","variables":{}}'
+```
+
+Response:
+
+```python
+{
+    "errors": [
+        {
+            "message": "Syntax Error GraphQL (1:7) Expected $, found )\n\n1: query()\n         ^\n2: {decryptMessage}\n",
+            "locations": [
+                {
+                    "line": 1,
+                    "column": 7
+                }
+            ]
+        }
+    ]
+}
+```
 
 
-2. **Missing Inputs:**
-
-The same as the endpoint (decryptMessage)
+</b>
 
 
 

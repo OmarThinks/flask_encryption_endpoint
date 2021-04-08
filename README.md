@@ -52,7 +52,7 @@ docker-compose up --force-recreate --build -d
 ```
 </b>
 
-And the image will be running.
+And the Container will be running.
 
 
 
@@ -134,14 +134,14 @@ python test_schema.py
 	<td>4</td>
 	<td>"/encryptOriginal"</td>
 	<td>POST</td>
-	<td>Encrypt original test using passphrase</td>
+	<td>Encrypt original text using passphrase</td>
 </tr>
 
 <tr>
 	<td>5</td>
 	<td>"/graphql"</td>
 	<td>GET</td>
-	<td>Encrypt and decrypt using the pass phrase</td>
+	<td>Encrypt and decrypt using the passphrase</td>
 </tr>
 
 </table>
@@ -359,7 +359,7 @@ curl --location --request POST 'http://127.0.0.1/decryptMessage' \
 ```
 Response:
 
-```bash
+```json
 {
     "DecryptedMessage": "Nice work!\n"
 }
@@ -383,7 +383,7 @@ curl --location --request POST 'http://127.0.0.1/decryptMessage' \
 ```
 Response:
 
-```bash
+```json
 {
     "detail": "Unsupported media type '' in request. 'application/json' is required."
 }
@@ -406,7 +406,7 @@ curl --location --request POST 'http://127.0.0.1/decryptMessage' \
 ```
 Response:
 
-```bash
+```json
 {
     "validation_error": {
         "body_params": [
@@ -441,7 +441,7 @@ curl --location --request POST 'http://127.0.0.1/decryptMessage' \
 ```
 Response:
 
-```bash
+```json
 {
     "validation_error": {
         "body_params": [
@@ -541,7 +541,7 @@ curl --location --request POST 'http://127.0.0.1/encryptOriginal' \
 ```
 Response:
 
-```bash
+```json
 {
     "EncryptedMessage": "-----BEGIN PGP MESSAGE-----\n\njA0EBwMCW3U04lwYEFnn0jgB8sKSfM2ZjeiSqtUD7g3De25h4PDVryTK1Wdlaiz7\nNuoiZu5/539p8qeqEI2+SCrD7wavUrubLQ==\n=WT8y\n-----END PGP MESSAGE-----\n"
 }
@@ -672,7 +672,7 @@ The same as the endpoint (decryptMessage)
 Request:
 
 Query:
-```bash
+```graphql
 query($original: String, $passphrase: String)
 {
     encryptMessage(
@@ -700,7 +700,7 @@ curl --location --request GET 'http://127.0.0.1/graphql' \
 ```
 Response:
 
-```bash
+```json
 {
     "data": {
         "encryptMessage": "-----BEGIN PGP MESSAGE-----\n\njA0EBwMCK737ynSdPM7n0jgBOnTxI/ZhZRAztTkO7LCZT+Zjt75zPmOQu4Gi3rBN\n//ht8Dt4nAI5e12kSKSiToJdwBObWtqIow==\n=ZL9T\n-----END PGP MESSAGE-----\n"
@@ -723,7 +723,7 @@ Response:
 Request:
 
 Query:
-```bash
+```graphql
 query($message: String, $passphrase: String)
 {
     decryptMessage(
@@ -751,7 +751,7 @@ curl --location --request GET 'http://127.0.0.1/graphql' \
 ```
 Response:
 
-```bash
+```json
 {
     "data": {
         "decryptMessage": "123"
@@ -780,7 +780,7 @@ curl --location --request GET 'http://127.0.0.1/graphql' \
 
 Response:
 
-```python
+```json
 {
     "errors": [
         {

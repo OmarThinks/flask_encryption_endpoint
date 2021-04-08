@@ -672,6 +672,153 @@ The same as the endpoint (decryptMessage)
 
 
 
+## F-5) "/graphql"
+
+### Request Method:
+**GET**
+
+### Testing on the browser:
+
+**You can test Graphiql on browser http://127.0.0.1/graphql**
+
+
+### Reasons:
+1. Test on the browser
+2. Encrypt Data
+3. Decrypt Data
+
+
+### Expected inputs of "encryptMessage" Query:
+
+<table>
+	<tr>
+		<th>Number</th>
+		<th>Name</th>
+		<th>Location</th>
+		<th>Type</th>
+		<th>Function</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>original</td>
+		<td>Request Body or Request Variables</td>
+		<td>String</td>
+		<td>The message to will be encrypted</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>passphrase</td>
+		<td>Request Body or Request Variables</td>
+		<td>String</td>
+		<td>The passphrase that will be used to 
+		encrypt the message</td>
+	</tr>
+</table>
+
+
+
+### Expected inputs of "decryptMessage" Query:
+
+
+<table>
+	<tr>
+		<th>Number</th>
+		<th>Name</th>
+		<th>Location</th>
+		<th>Type</th>
+		<th>Function</th>
+	</tr>
+	<tr>
+		<td>1</td>
+		<td>message</td>
+		<td>Request Body or Request Variables</td>
+		<td>String</td>
+		<td>The message to be decrypted</td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td>passphrase</td>
+		<td>Request Body or Request Variables</td>
+		<td>String</td>
+		<td>The passphrase that will be used to 
+		decrypt the message</td>
+	</tr>
+</table>
+
+
+
+
+
+
+### Examples:
+<b>
+
+Request:
+```bash
+curl --location --request POST 'http://127.0.0.1/encryptOriginal' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "original":"123",
+    "passphrase":"secret"
+}'
+```
+Response:
+
+```bash
+{
+    "EncryptedMessage": "-----BEGIN PGP MESSAGE-----\n\njA0EBwMCW3U04lwYEFnn0jgB8sKSfM2ZjeiSqtUD7g3De25h4PDVryTK1Wdlaiz7\nNuoiZu5/539p8qeqEI2+SCrD7wavUrubLQ==\n=WT8y\n-----END PGP MESSAGE-----\n"
+}
+```
+
+</b>
+
+
+
+
+
+### Errors:
+1. **No Inputs:**
+
+The same as the endpoint (decryptMessage)
+
+
+2. **Missing Inputs:**
+
+The same as the endpoint (decryptMessage)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
